@@ -1,3 +1,4 @@
+#pragma once
 /* 
  * @author:letangers
  * @email :letangers@gmail.com
@@ -11,8 +12,6 @@
 #include <string>
 
 
-void err(const std::string & err_info){
-	std::cerr<<err_info<<std::endl;
-}
+void err(const std::string & err_info);
 
 #endif
