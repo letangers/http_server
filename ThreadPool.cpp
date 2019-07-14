@@ -18,9 +18,8 @@ void ThreadFunc(ThreadPool * tp){
 		tp->idle_thread_num_--;
 		//if reture turn,keep-alive is true.
 		//exec epoll_mod
-		if(task->handle() == 0){
-			int connfd = task->GetConnfd();
-			tp->epoll_->EpollMod(connfd);
+		if(task->handle() == 1){
+			tp->epoll_->EpollMod(task->GetConnfd());
 		}
 		tp->idle_thread_num_++;
 	}

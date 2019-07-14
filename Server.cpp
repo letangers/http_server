@@ -17,6 +17,10 @@ Server::~Server(){
 
 bool Server::Init(){
 	//init http field trie
+	auto http_field_data = HttpFieldData::GetInstance();
+	if(!http_field_data->LoadFile("data/HttpField")){
+		std::cout<<"open http field failed"<<std::endl;
+	}
 	
 	//gain listenfd_
 	listenfd_ = Socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -34,7 +38,7 @@ bool Server::Init(){
 	Bind(listenfd_,(struct sockaddr*)&server_addr,sizeof(server_addr));
 
 	Listen(listenfd_,SOMAXCONN);
-	//SetSocketNonBlocking(listenfd_);
+	SetSocketNonBlocking(listenfd_);
 
 	return true;
 }

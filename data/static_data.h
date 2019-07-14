@@ -5,7 +5,9 @@
 
 class StaticData{
 	public:
-		StaticData(){}
+		StaticData(){
+			trie_ = new trie_node();
+		}
 		virtual ~StaticData(){}
 
 		virtual bool LoadFile(const std::string &fname) = 0;

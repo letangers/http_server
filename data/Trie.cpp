@@ -13,6 +13,7 @@ bool trie_node::AddWord(const std::string &word){
 }
 
 bool trie_node::LoadFile(const std::string &path){
+	std::cout<<"file path is "<<path<<std::endl;
 	if(path.empty()){
 		std::cout<<"path is empty"<<std::endl;
 		return false;

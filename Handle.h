@@ -6,15 +6,38 @@
 #include <map>
 #include "Epoll.h"
 #include <memory>
+#include <algorithm>
+
+#include "data/static_data.h"
 
 class HttpField{
 	public:
-		std::string methond_;
+		std::string method_;
 		std::string uri_;
 		std::string version_;
 		std::string host_;
-		std::string user_agant_;
+		int content_length_;
 		bool keep_alive_;
+		void SetInfo(){
+			std::string value;
+			if(GetField("Content-Length",value)){
+				content_length_ = stoi(value);
+			}
+			else{
+				content_length_ = 0;
+			}
+			if(GetField("Host",value)){
+				host_ = value;
+			}
+			if(GetField("Connection",value)){
+				if(value == "keep-alive"){
+					keep_alive_ = true;
+				}
+				else{
+					keep_alive_ = false;
+				}
+			}
+		}
 		bool SetField(const std::string &field,const std::string &value){
 			if(fields_.find(field)==fields_.end()){
 				fields_[field] = value;
@@ -42,6 +65,7 @@ class Handle{
 		HttpField http_field_;
 		int connfd_;
 		std::shared_ptr<struct epoll_event> event_;
+		bool ParseFirstLine(std::string &one);
 		bool ParseReq();
 		bool RecvData();
 		bool HandleReq();

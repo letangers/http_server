@@ -2,7 +2,7 @@
 
 HttpFieldData *HttpFieldData::m_pInstance = nullptr;
 
-bool HttpFieldData::LoadData(const std::string &fname){
+bool HttpFieldData::LoadFile(const std::string &fname){
 	if(!trie_->LoadFile(fname)){
 		return false;
 	}

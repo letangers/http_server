@@ -27,7 +27,7 @@ int Listen(int sockfd, int max_conn){
 int Accept(int sockfd, struct sockaddr * peer_addr, socklen_t* peer_len){
 	int connfd;
 	if( (connfd = accept(sockfd,peer_addr,peer_len)) < 0){
-		err("accept error");
+		//err("accept error");
 	}
 	return connfd;
 }

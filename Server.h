@@ -27,6 +27,8 @@
 #include <poll.h>
 #include <sys/epoll.h>
 
+#include "data/static_data.h"
+
 class Server;
 void AcceptFunc(Server *sp);
 

@@ -1,8 +1,8 @@
 #include "Trie.h"
 
 
-int main(){
-	std::string path = "file";
+int t_main(){
+	std::string path = "HttpField";
 	trie_node trie;
 	trie.LoadFile(path);
 	

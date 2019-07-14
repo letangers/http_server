@@ -1,3 +1,9 @@
+HEAD
+PUT
+DELETE
+OPTIONS
+GET
+POST
 Cookie
 Origin
 Accept
@@ -27,3 +33,4 @@ User-Agent
 Upgrade
 Via
 Warning
+Upgrade-Insecure-Requests
