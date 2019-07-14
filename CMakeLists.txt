@@ -4,7 +4,7 @@ project(http_server)
 
 aux_source_directory(data DATA)
 
-add_executable(serv ${DATA} Main.cpp Err.cpp PerConnect.cpp Io.cpp ThreadPool.cpp Handle.cpp Server.cpp Epoll.cpp Socket.cpp)
+add_executable(serv ${DATA} Main.cpp Err.cpp Io.cpp ThreadPool.cpp Handle.cpp Server.cpp Epoll.cpp Socket.cpp)
 
 target_link_libraries(serv pthread)
 

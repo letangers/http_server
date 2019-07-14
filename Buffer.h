@@ -43,6 +43,13 @@ class Buffer{
 			int ret = writen(fd,&(*buffer_.begin()),Size());
 			return ret;
 		}
+
+		void ShowBuf(){
+			for(auto &i : buffer_){
+				std::cout<<i;
+			}
+			std::cout<<std::endl;
+		}
 };
 
 #endif

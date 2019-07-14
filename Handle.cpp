@@ -1,5 +1,4 @@
 #include "Handle.h"
-#include "PerConnect.h"
 
 bool Handle::ParseFirstLine(std::string &one){
 	int locate = one.find(" ");
@@ -26,6 +25,14 @@ bool Handle::ParseReq(){
 		close(connfd_);
 		return false;
 	}
+	//show req
+	/*
+	for(int i = 0;i<ret;i++){
+		std::cout<<buff[i];
+	}
+	std::cout<<std::endl;
+	*/
+
 	std::vector<std::string> lines;
 	auto line_begin = buff.begin();
 	for(auto iter = buff.begin();iter != buff.begin()+ret;iter++){
@@ -87,7 +94,6 @@ bool Handle::HandleReq(){
 }
 
 bool Handle::SendResponse(){
-	std::cout<<"in send res"<<std::endl;
 	if(send_buf_.SendBuf(connfd_) < 0){
 		return false;
 	}
@@ -112,31 +118,28 @@ int Handle::handle(){
 		auto http_field_data = HttpFieldData::GetInstance();
 		auto trie = http_field_data->trie_;
 		//read req
-		std::cout<<11111<<std::endl;
 		if(!ParseReq()){
-			std::cout<<"san ci wo shou"<<std::endl;
 			return -1;
 		}
-		std::cout<<111112<<std::endl;
+		//delete
+		http_field_.ShowField();
 		if(!RecvData()){
 			return -1;
 		}
-		std::cout<<111113<<std::endl;
+		//delete
+		recv_buf_.ShowBuf();
 		if(!HandleReq()){
 			return 0;
 		}
-		std::cout<<111114<<std::endl;
-		if(SendResponse()){
+		if(!SendResponse()){
 			return -1;
 		}
-		std::cout<<111115<<std::endl;
 		//if keep-alive,return 1
 		if(http_field_.keep_alive_){
-			std::cout<<111116<<std::endl;
+			Close(connfd_);
 			return 1;
 		}
 		else{
-			std::cout<<111117<<std::endl;
 			Close(connfd_);
 		}
 	}

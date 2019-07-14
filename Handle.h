@@ -54,6 +54,12 @@ class HttpField{
 			value = fields_[field];
 			return true;
 		}
+		void ShowField(){
+			std::cout<<method_<<"   "<<uri_<<"   "<<version_<<std::endl;
+			for(auto &one : fields_){
+				std::cout<<one.first<<"  :  "<<one.second<<std::endl;
+			}
+		}
 	private:
 		std::map<std::string,std::string> fields_;
 };
