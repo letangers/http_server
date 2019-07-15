@@ -1,12 +1,21 @@
-###实现简单的c++ 服务器
-
-- 命名规则：
-  - 文件以 首字母大写 的单词命名
-  - 变量和普通函数用 小写单词 + 下划线 命名
-  - 成员函数的每个单词首字母均大写
-- 暂时想到需要攻克的东西：
-  - 解析请求
-  - 大文件的传输
-  - 心跳机制
-  - 并发
-
+####http静态服务器
+- Buffer.h
+  - 应用层缓冲区，接收发来的数据
+- Io.h
+  - 对read和write函数的封装，实现readn和writen
+- Epoll.h
+  - 对epoll的封装，监听EPOLLIN和EPOLLRDHUP事件
+- Socket.h
+  - 对socket函数的封装
+- Handle.h
+  - 负责解析请求，响应请求，发送返回
+  - ParseReq() 解析请求，将解析后的结果存入http_field_字段
+  - HandleReq() 需要实现响应逻辑，可以从http_field_中获取感兴趣的字段，处理请求，而后生成响应内容，存入send_buf_中
+- ThreadPool.h
+  - 实现线程池，维护一个任务队列和一个线程的vector，add_task_线程负责处理epoll的监听结果,每有一个事件，唤醒一个线程      去处理，使用 条件变量进行 线程同步。
+  - todo:
+    - 进一步修改，使得线程数量可以动态变化，临时线程需要设置一个超时时间											    
+- Server.h
+  - accept_thread_线程负责接受新的连接请求，设置为非阻塞套接字后加入epoll
+- data/Trie.h
+  - 实现了trie树的一些操作，暂时未用上。
